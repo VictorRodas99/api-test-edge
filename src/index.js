@@ -1,10 +1,12 @@
 import express from 'express'
 import * as dotenv from 'dotenv'
+import cookieParser from 'cookie-parser'
 
 import { logger } from './middlewares/logger.js'
 import { db } from './config/db.config.js'
 import baseRoutes from './routes/base.routes.js'
 import authRoutes from './routes/auth.routes.js'
+import v1WorkoutRoutes from './routes/v1/workouts.routes.js'
 
 dotenv.config()
 
@@ -13,11 +15,13 @@ const port = process.env.PORT ?? 8000
 
 /* Middlewares */
 app.use(express.json())
+app.use(cookieParser())
 app.use(logger)
 
 /* Endpoints */
 app.use(baseRoutes)
-app.use(authRoutes)
+app.use('/api', authRoutes)
+app.use('/api/v1', v1WorkoutRoutes)
 
 app.use((req, res) => {
   res.status(404).json({
