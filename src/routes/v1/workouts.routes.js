@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { guard } from '../../middlewares/guard.js'
-import { getWorkouts, getWorkoutById, createWorkout, updateWorkout, deleteWorkout } from '../../controllers/workouts.controllers.js'
+import { getWorkouts, createWorkout, updateWorkout, deleteWorkout, getWorkoutByDay } from '../../controllers/workouts.controllers.js'
 
 const router = Router()
 
@@ -13,7 +13,7 @@ router.get('/', guard, (req, res) => {
 
 router
   .get('/workouts', guard, getWorkouts)
-  .get('/workouts/:id', guard, getWorkoutById)
+  .get('workouts/:day', guard, getWorkoutByDay)
   .post('/workouts', guard, createWorkout)
   .put('/workouts/:id', guard, updateWorkout)
   .delete('/workouts', guard, deleteWorkout)
