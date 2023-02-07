@@ -80,3 +80,9 @@ export const loginUser = async (req, res) => {
     })
   }
 }
+
+export const logoutUser = (req, res) => {
+  req.session = {}
+  res.clearCookie('access-token')
+  res.redirect('/')
+}
