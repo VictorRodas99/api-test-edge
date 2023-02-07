@@ -2,7 +2,7 @@ import { Workout } from '../models/Workout.js'
 import { findBy } from '../services/tools.services.js'
 import { validateWorkoutFields } from '../utils/validatorWorkout.js'
 import { parseDay } from '../utils/workoutTools.js'
-import { createWorkout as createWorkoutDB, updateWorkoutBy } from '../services/workouts.services.js'
+import { createWorkout as createWorkoutDB, deleteWorkoutBy, updateWorkoutBy } from '../services/workouts.services.js'
 import { validateReqId, getRequestDate } from '../utils/generalTools.js'
 
 export const getWorkouts = async (req, res) => {
@@ -124,4 +124,34 @@ export const updateWorkout = async (req, res) => {
   }
 }
 
-export const deleteWorkout = () => {}
+export const deleteWorkout = async (req, res) => {
+  try {
+    const userId = req.session.id
+    const day = parseDay(req.params.day)
+    const workoutId = validateReqId(req.params.id)
+
+    const result = await deleteWorkoutBy({
+      condition: { id: workoutId, day, user_id: userId }
+    })
+
+    if (typeof result === 'object' && 'error' in result) {
+      return res.status(503).json({
+        error: 'Database Error'
+      })
+    }
+
+    if (!result) {
+      return res.status(404).json({
+        message: `Workout with id ${workoutId} of day ${day} not found`
+      })
+    }
+
+    return res.json({
+      message: `Workout ${workoutId} of day ${day} deleted!`
+    })
+  } catch (error) {
+    res.status(400).json({
+      error: error.message
+    })
+  }
+}
