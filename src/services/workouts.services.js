@@ -34,3 +34,12 @@ export const updateWorkoutBy = async ({ condition, updatedData }) => {
     return { error }
   }
 }
+
+export const deleteWorkoutBy = async ({ condition }) => {
+  try {
+    const result = await Workout.destroy({ where: condition })
+    return result
+  } catch (error) {
+    return { error }
+  }
+}
