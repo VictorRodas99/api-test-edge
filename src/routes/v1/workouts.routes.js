@@ -16,6 +16,6 @@ router
   .get('/workouts/:day', guard, getWorkoutsByDay)
   .post('/workouts', guard, createWorkout)
   .put('/workouts/:id', guard, updateWorkout)
-  .delete('/workouts', guard, deleteWorkout)
+  .delete('/workouts/:day/:id', guard, deleteWorkout)
 
 export default router
