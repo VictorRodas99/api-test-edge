@@ -25,3 +25,12 @@ export const createWorkout = async (data) => {
     }
   }
 }
+
+export const updateWorkoutBy = async ({ condition, updatedData }) => {
+  try {
+    const [result] = await Workout.update(updatedData, { where: condition })
+    return result
+  } catch (error) {
+    return { error }
+  }
+}
