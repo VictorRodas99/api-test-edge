@@ -2,7 +2,7 @@ import { isString } from './generalTools.js'
 
 const parseName = (dirtyName) => {
   if (!isString(dirtyName)) {
-    throw new Error('Nombre inválido o no ingresado')
+    throw new Error('Invalid or missing name!')
   }
 
   return dirtyName
@@ -10,7 +10,7 @@ const parseName = (dirtyName) => {
 
 const parseEmail = (dirtyEmail) => {
   if (!isString(dirtyEmail)) {
-    throw new Error('Email inválido o no ingresado')
+    throw new Error('Invalid or missing email!')
   }
 
   // Validate if it is a correct email
@@ -19,7 +19,7 @@ const parseEmail = (dirtyEmail) => {
   const isValid = regex.test(dirtyEmail)
 
   if (!isValid) {
-    throw new Error('Email inválido o no ingresado')
+    throw new Error('Invalid or missing email!')
   }
 
   return dirtyEmail
@@ -28,7 +28,7 @@ const parseEmail = (dirtyEmail) => {
 const parsePassword = (dirtyPassword) => {
   if (!isString(dirtyPassword) || String(dirtyPassword).length < 8) {
     throw new Error(
-      'La contraseña no ha sido ingresada o es muy corta (Debe tener al menos 8 caracteres)'
+      'Password is missing or is too short (must contain more than 8 characters)'
     )
   }
 
@@ -37,7 +37,7 @@ const parsePassword = (dirtyPassword) => {
 
   if (!isValid) {
     throw new Error(
-      'La contraseña debe tener números, letras minúsculas y mayúsculas'
+      'Password must contain numbers and uppercase and lowercase letters'
     )
   }
 
