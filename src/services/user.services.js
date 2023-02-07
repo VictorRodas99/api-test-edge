@@ -16,7 +16,7 @@ export const createUser = async (data) => {
   } catch (error) {
     return {
       code: 503,
-      message: error.message
+      message: 'Database Error'
     }
   }
 }
