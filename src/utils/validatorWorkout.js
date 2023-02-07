@@ -8,7 +8,7 @@ const parseString = (dirt, field) => {
   return String(dirt)
 }
 
-const parseDay = (dirtyDay) => {
+export const parseDay = (dirtyDay) => {
   if (!isNumber(dirtyDay)) {
     throw new Error('Day field must be a number!')
   }
