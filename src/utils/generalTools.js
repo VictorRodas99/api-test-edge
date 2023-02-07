@@ -1,3 +1,7 @@
+export const isString = (data) => {
+  return typeof data === 'string'
+}
+
 export const getDate = () => {
   const date = new Date()
   const fullDate = date.toLocaleDateString()
