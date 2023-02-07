@@ -5,10 +5,8 @@ import { getWorkouts, createWorkout, updateWorkout, deleteWorkout, getWorkoutsBy
 const router = Router()
 
 router.get('/', guard, (req, res) => {
-  res.json({
-    message: 'This is a testing route',
-    data: req.session
-  })
+  const { baseUrl } = req
+  res.redirect(`${baseUrl}/docs`)
 })
 
 router
