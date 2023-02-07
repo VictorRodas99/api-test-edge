@@ -7,6 +7,7 @@ import { db } from './config/db.config.js'
 import baseRoutes from './routes/base.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import v1WorkoutRoutes from './routes/v1/workouts.routes.js'
+import v2UserRoutes from './routes/v2/user.routes.js'
 
 dotenv.config()
 
@@ -22,6 +23,7 @@ app.use(logger)
 app.use(baseRoutes)
 app.use('/api', authRoutes)
 app.use('/api/v1', v1WorkoutRoutes)
+app.use('/api/v2', v2UserRoutes, v1WorkoutRoutes)
 
 app.use((req, res) => {
   res.status(404).json({
