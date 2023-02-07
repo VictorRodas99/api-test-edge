@@ -1,5 +1,7 @@
 import { Workout } from '../models/Workout.js'
 import { findBy } from '../services/tools.services.js'
+import { validateWorkoutFields } from '../utils/validatorWorkout.js'
+import { createWorkout as createWorkoutDB } from '../services/workouts.services.js'
 
 export const getWorkouts = async (req, res) => {
   const { id } = req.session
@@ -28,6 +30,22 @@ export const getWorkouts = async (req, res) => {
   })
 }
 export const getWorkoutByDay = async (req, res) => {}
-export const createWorkout = () => {}
+export const createWorkout = async (req, res) => {
+  try {
+    const { id } = req.session
+    const workoutData = validateWorkoutFields(req.body)
+
+    const { code, message } = await createWorkoutDB({ ...workoutData, user_id: id })
+
+    return res.status(code).json({
+      message,
+      createdAt: new Date().toLocaleString()
+    })
+  } catch (error) {
+    res.status(400).json({
+      error: error.message
+    })
+  }
+}
 export const updateWorkout = () => {}
 export const deleteWorkout = () => {}
