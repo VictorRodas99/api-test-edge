@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv'
 import { logger } from './middlewares/logger.js'
 import { db } from './config/db.config.js'
 import baseRoutes from './routes/base.routes.js'
+import authRoutes from './routes/auth.routes.js'
 
 dotenv.config()
 
@@ -16,6 +17,7 @@ app.use(logger)
 
 /* Endpoints */
 app.use(baseRoutes)
+app.use(authRoutes)
 
 app.use((req, res) => {
   res.status(404).json({
