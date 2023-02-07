@@ -2,6 +2,7 @@ import express from 'express'
 import * as dotenv from 'dotenv'
 
 import { logger } from './middlewares/logger.js'
+import { db } from './config/db.config.js'
 
 dotenv.config()
 
@@ -28,5 +29,12 @@ app.use((req, res) => {
     error: `Cannot ${req.method} ${req.url}`
   })
 })
+
+/* Database initialization */
+db.sync()
+  .then(() => console.log('\nSuccessfully sync to the database!'))
+  .catch((error) =>
+    console.error('Unable to connect to the database:', error.message)
+  )
 
 app.listen(port, () => console.log(`Api listening on port ${port}...`))
