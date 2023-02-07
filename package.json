@@ -1,0 +1,37 @@
+{
+  "name": "api-test-edge",
+  "version": "1.0.0",
+  "description": "Una simple API que registra rutinas diarias de ejercicios",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VictorRodas99/api-test-edge.git"
+  },
+  "author": "Víctor Rodas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VictorRodas99/api-test-edge/issues"
+  },
+  "homepage": "https://github.com/VictorRodas99/api-test-edge#readme",
+  "dependencies": {
+    "dotenv": "16.0.3",
+    "express": "4.18.2",
+    "mysql2": "3.1.1",
+    "sequelize": "6.28.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "standard": "17.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/standard/eslintrc.json"
+    ]
+  }
+}
