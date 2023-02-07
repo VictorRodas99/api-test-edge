@@ -1,7 +1,9 @@
 import { Workout } from '../models/Workout.js'
 import { findBy } from '../services/tools.services.js'
-import { validateWorkoutFields, parseDay } from '../utils/validatorWorkout.js'
-import { createWorkout as createWorkoutDB } from '../services/workouts.services.js'
+import { validateWorkoutFields } from '../utils/validatorWorkout.js'
+import { parseDay } from '../utils/workoutTools.js'
+import { createWorkout as createWorkoutDB, updateWorkoutBy } from '../services/workouts.services.js'
+import { validateReqId, getRequestDate } from '../utils/generalTools.js'
 
 export const getWorkouts = async (req, res) => {
   const { id } = req.session
@@ -78,7 +80,7 @@ export const createWorkout = async (req, res) => {
 
     return res.status(code).json({
       message,
-      createdAt: new Date().toLocaleString()
+      createdAt: getRequestDate()
     })
   } catch (error) {
     res.status(400).json({
@@ -86,5 +88,40 @@ export const createWorkout = async (req, res) => {
     })
   }
 }
-export const updateWorkout = () => {}
+
+export const updateWorkout = async (req, res) => {
+  try {
+    const userId = req.session.id
+    const workoutId = validateReqId(req.params.id)
+    const updatedData = validateWorkoutFields(req.body, false)
+
+    const result = await updateWorkoutBy({
+      condition: { id: workoutId, user_id: userId },
+      updatedData
+    })
+
+    if (!result) {
+      return res.status(404).json({
+        message: `Workout with id ${workoutId} not found or given data are the same that the original`
+      })
+    }
+
+    if (typeof result === 'object' && 'error' in result) {
+      return res.status(503).json({
+        error: 'Database Error'
+      })
+    }
+
+    return res.json({
+      message: 'Successfull update!',
+      updatedAt: getRequestDate(),
+      updatedFields: Object.keys(updatedData)
+    })
+  } catch (error) {
+    res.status(400).json({
+      error: error.message
+    })
+  }
+}
+
 export const deleteWorkout = () => {}
