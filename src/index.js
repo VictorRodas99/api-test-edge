@@ -8,6 +8,7 @@ import baseRoutes from './routes/base.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import v1WorkoutRoutes from './routes/v1/workouts.routes.js'
 import v2UserRoutes from './routes/v2/user.routes.js'
+import { swaggerDocs } from './middlewares/swagger.js'
 
 dotenv.config()
 
@@ -18,6 +19,7 @@ const port = process.env.PORT ?? 8000
 app.use(express.json())
 app.use(cookieParser())
 app.use(logger)
+swaggerDocs(app)
 
 /* Endpoints */
 app.use(baseRoutes)
