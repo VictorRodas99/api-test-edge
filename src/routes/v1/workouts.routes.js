@@ -4,10 +4,7 @@ import { getWorkouts, createWorkout, updateWorkout, deleteWorkout, getWorkoutsBy
 
 const router = Router()
 
-router.get('/', guard, (req, res) => {
-  const { baseUrl } = req
-  res.redirect(`${baseUrl}/docs`)
-})
+router.get('/', (_req, res) => res.redirect('/api/docs'))
 
 router
   .get('/workouts', guard, getWorkouts)
