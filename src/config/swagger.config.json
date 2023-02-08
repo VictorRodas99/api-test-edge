@@ -1,0 +1,456 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Workouts API - Edge Test",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8000"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Authentication"
+      },
+      {
+        "name": "Workouts",
+        "description": "Peticiones para la creación, eliminación, obtención y actualización de los ejercicios del usuario"
+      },
+      {
+        "name": "User"
+      }
+    ],
+    "paths": {
+      "/api/register": {
+        "post": {
+          "tags": [
+            "Authentication"
+          ],
+          "summary": "Register",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "name": "Usuario",
+                    "email": "testing@gmail.com",
+                    "password": "Contraseña123"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/api/login": {
+        "post": {
+          "tags": [
+            "Authentication"
+          ],
+          "summary": "Second Login",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "name": "Usuario",
+                    "email": "testing@gmail.com",
+                    "password": "Contraseña123"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/api/logout": {
+        "get": {
+          "tags": [
+            "Authentication"
+          ],
+          "summary": "Logout",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/workouts": {
+        "post": {
+          "tags": [
+            "Workouts"
+          ],
+          "summary": "Create Workout",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "main_muscle_group": "Pecho",
+                    "workout_name": "Press banca",
+                    "day": 1,
+                    "series": 4,
+                    "repetitions": 15
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Workouts"
+          ],
+          "summary": "Get All Workouts",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "146"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"92-KdHDWpWyQzcJ6/dOPjHE6WYJEfQ\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Wed, 08 Feb 2023 01:25:48 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "totalWorkouts": 1,
+                    "workouts": [
+                      {
+                        "id": 5,
+                        "main_muscle_group": "Pecho",
+                        "workout_name": "Press banca",
+                        "day": 1,
+                        "series": 4,
+                        "repetitions": 15,
+                        "user_id": 3
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/workouts/{day}/{id}": {
+        "delete": {
+          "tags": [
+            "Workouts"
+          ],
+          "summary": "Delete Workout",
+          "parameters": [
+            {
+              "name": "day",
+              "in": "path",
+              "schema": {
+                "type": "integer"
+              },
+              "required": true,
+              "description": "El día de la semana, donde 1 es Lunes y 5 es Viernes",
+              "example": "1"
+            },
+            {
+              "name": "id",
+              "in": "path",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "El id único del ejercicio",
+              "example": "{{workoutId}}"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "41"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"29-OoMKuMl1eEaXvlPfwlWiHnfbKaU\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Wed, 08 Feb 2023 01:43:32 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "message": "Workout 5 of day 1 deleted!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/workouts/{day}": {
+        "get": {
+          "tags": [
+            "Workouts"
+          ],
+          "summary": "Get Workouts By Day",
+          "parameters": [
+            {
+              "name": "day",
+              "in": "path",
+              "schema": {
+                "type": "integer"
+              },
+              "required": true,
+              "description": "El día de la semana, donde 1 es Lunes y 5 es Viernes",
+              "example": "1"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/workouts/{id}": {
+        "put": {
+          "tags": [
+            "Workouts"
+          ],
+          "summary": "Update Workout By Id",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": "{{dataForUpdate}}"
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "schema": {
+                "type": "string"
+              },
+              "required": true,
+              "description": "El id único del ejercicio",
+              "example": "{{workoutId}}"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/api/v2/profile": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Get Profile Info",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {}
+              }
+            }
+          }
+        }
+      },
+      "/": {
+        "get": {
+          "tags": [
+            "default"
+          ],
+          "summary": "Get main endpoints",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "headers": {
+                "X-Powered-By": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Express"
+                  }
+                },
+                "Content-Type": {
+                  "schema": {
+                    "type": "string",
+                    "example": "application/json; charset=utf-8"
+                  }
+                },
+                "Content-Length": {
+                  "schema": {
+                    "type": "integer",
+                    "example": "162"
+                  }
+                },
+                "ETag": {
+                  "schema": {
+                    "type": "string",
+                    "example": "W/\"a2-0KnTZVRHl1UGY7gdLVMNuj+xY/4\""
+                  }
+                },
+                "Date": {
+                  "schema": {
+                    "type": "string",
+                    "example": "Wed, 08 Feb 2023 00:37:44 GMT"
+                  }
+                },
+                "Connection": {
+                  "schema": {
+                    "type": "string",
+                    "example": "keep-alive"
+                  }
+                },
+                "Keep-Alive": {
+                  "schema": {
+                    "type": "string",
+                    "example": "timeout=5"
+                  }
+                }
+              },
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "message": "Welcome to the workout API register!",
+                    "endpoints": {
+                      "authentication": [
+                        "/api/register",
+                        "/api/login"
+                      ],
+                      "version_one": "/api/v1/",
+                      "version_two": "/api/v2/"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
